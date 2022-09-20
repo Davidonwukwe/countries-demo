@@ -43,9 +43,8 @@ const Main = () => {
     const { error, loading, data } = useQuery(GetCountries);
 
     useEffect(() => {
-
-    }, [data]);
-    const filterCountries = (event: any) => {
+    }, [data, filteredData]);
+    const filterCountries = async (event: any) => {
         event.preventDefault();
         const filteredCountries = data.countries.filter((country: Country) =>
             country.name.toLowerCase().includes(searchValue)
@@ -88,16 +87,16 @@ const Main = () => {
 
                         </div>
 
-                        {(searchActive && !!filteredData.length) && (
-                            <>
+                        {(!!filteredData.length) && (
+                            <div data-testid="countryResult">
                                 {filteredData.map((country, index) => (
                                     <div key={index} className="my-3">
-                                        <div key={index}><span className="emoji" role="img">{country.emoji}</span> {country.name}</div>
+                                        <div key={index}><span className="emoji" role="img">{country.emoji}</span> <span data-testid="countryName">{country.name}</span> </div>
                                         <div>Continent: {country.continent.name}</div>
                                         <button className="btn btn-sm btn-primary"> See Details</button>
                                     </div>
                                 ))}
-                            </>
+                            </div>
                         )}
                         {(searchActive && !filteredData.length) && <div className="mt-2"> No result found</div>}
                 </form> }

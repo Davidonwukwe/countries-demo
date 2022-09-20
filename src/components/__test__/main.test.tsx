@@ -1,24 +1,30 @@
 import {render, screen, cleanup} from "@testing-library/react";
-import renderer from "react-test-renderer";
+import renderer, {act} from "react-test-renderer";
 import Main from "../main/main"
 import  '@testing-library/jest-dom'
 import {MockedProvider} from "@apollo/client/testing";
 import {GetCountries} from "../../GraphQL/GetCountries";
+import userEvent from "@testing-library/user-event";
 
 afterEach(() => {
     cleanup();
 })
+
 const mocks = [
     {
         request: {
-            query: GetCountries,
-            variables: {
-                name: "Nigeria"
-            }
+            query: GetCountries
         },
         result: {
             data: {
-                country: { name: "Nigeria"}
+                countries: [{
+                    "name": "Nigeria",
+                    "code": "NG",
+                    "continent": {
+                        "name": "Africa",
+                    },
+                    "emoji": "🇳🇬",
+                }]
             }
         }
     }
@@ -32,13 +38,17 @@ describe('test the Main page component', () => {
         const titleElement =  screen.getByTestId('title');
         expect(titleElement).toBeInTheDocument();
     })
-    test('should render the login form with search button', () => {
-        render(
-            <MockedProvider mocks={mocks} addTypename={false}>
-                <Main/>
-            </MockedProvider>)
-        const button =  screen.getByTestId('button');
-        expect(button).toBeInTheDocument();
+    test('should render the login form with search input and button', async () => {
+            render(
+                <MockedProvider mocks={mocks} addTypename={false}>
+                    <Main/>
+                </MockedProvider>)
+
+        await new Promise((r) => setTimeout(r, 3000));
+        const searchButton = screen.getByTestId('searchButton');
+        const searchInput = screen.getByTestId('searchInput');
+
+        expect(searchInput).toBeInTheDocument();
     })
 })
 

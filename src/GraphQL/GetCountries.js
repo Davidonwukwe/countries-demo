@@ -9,7 +9,6 @@ export const GetCountries = gql`
         name
       }
       emoji
-      emojiU
     }
   }
 `;
