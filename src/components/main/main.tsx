@@ -45,7 +45,8 @@ const Main = () => {
     useEffect(() => {
 
     }, [data]);
-    const filterCountries = () => {
+    const filterCountries = (event: any) => {
+        event.preventDefault();
         const filteredCountries = data.countries.filter((country: Country) =>
             country.name.toLowerCase().includes(searchValue)
         );
@@ -60,8 +61,7 @@ const Main = () => {
             {loading ? <div className="spinner-border my-3 d-flex mx-auto" role="status">
                 <span className="visually-hidden">Loading...</span>
             </div> :
-                <>
-
+                <form>
                         <div className="form-group mt-2">
                             <label htmlFor="searchInput">Keyword</label>
                             <div className="d-flex justify-content-between searchInput">
@@ -70,12 +70,16 @@ const Main = () => {
                                     onChange={(event) => setSearchValue(event.target.value)}
                                     className="form-control searchInput mr-2"
                                     id="searchInput"
+                                    data-testid="searchInput"
                                     aria-describedby="emailHelp"
                                     placeholder="search keyword"
                                 />
                                 <button
-                                    onClick={() => filterCountries()}
+                                    onClick={(event) => filterCountries(event)}
+                                    type="submit"
                                     className="btn btn-primary ml-1"
+                                    data-testid="searchButton"
+                                    disabled={!searchValue}
                                 >
                                     Search
                                 </button>
@@ -87,7 +91,7 @@ const Main = () => {
                         {(searchActive && !!filteredData.length) && (
                             <>
                                 {filteredData.map((country, index) => (
-                                    <div className="my-3">
+                                    <div key={index} className="my-3">
                                         <div key={index}><span className="emoji" role="img">{country.emoji}</span> {country.name}</div>
                                         <div>Continent: {country.continent.name}</div>
                                         <button className="btn btn-sm btn-primary"> See Details</button>
@@ -96,7 +100,7 @@ const Main = () => {
                             </>
                         )}
                         {(searchActive && !filteredData.length) && <div className="mt-2"> No result found</div>}
-                </> }
+                </form> }
             </div>
 
     </Container>
