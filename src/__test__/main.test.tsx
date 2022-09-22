@@ -1,5 +1,4 @@
 import {render, screen, cleanup} from "@testing-library/react";
-import renderer, {act} from "react-test-renderer";
 import Main from "../components/main/main"
 import  '@testing-library/jest-dom'
 import {MockedProvider} from "@apollo/client/testing";
