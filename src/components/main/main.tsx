@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GetCountries } from "../../GraphQL/GetCountries";
 import {Country} from "../../interfaces/MainInterface";
@@ -9,7 +9,7 @@ const Main = () => {
     const [searchValue, setSearchValue] = useState("");
     const [searchActive, setSearchActive] = useState(false);
     const [filteredData, setFilteredData] = useState<Country []>([]);
-    const { error, loading, data } = useQuery(GetCountries);
+    const { loading, data } = useQuery(GetCountries);
 
     useEffect(() => {
     }, [data, filteredData]);
