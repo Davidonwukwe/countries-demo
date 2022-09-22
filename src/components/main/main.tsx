@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import { GetCountries } from "../../GraphQL/GetCountries";
 import {Country} from "../../interfaces/MainInterface";
 import {Container} from "../styles/styles";
-import CountriesList from "../countries-list";
+import CountriesList from "../countries-list/countries-list";
 
 
 const Main = () => {

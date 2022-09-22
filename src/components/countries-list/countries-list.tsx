@@ -1,5 +1,5 @@
 import React from "react";
-import {Country, CountryProps} from "../interfaces/MainInterface";
+import {Country, CountryProps} from "../../interfaces/MainInterface";
 
 const CountriesList = ({filteredData, searchActive} : CountryProps) => {
 

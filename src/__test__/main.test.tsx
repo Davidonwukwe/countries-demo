@@ -44,7 +44,6 @@ describe('test the Main page component', () => {
                 </MockedProvider>)
 
         await new Promise((r) => setTimeout(r, 3000));
-        const searchButton = screen.getByTestId('searchButton');
         const searchInput = screen.getByTestId('searchInput');
 
         expect(searchInput).toBeInTheDocument();
