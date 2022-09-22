@@ -1,49 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GetCountries } from "../../GraphQL/GetCountries";
-import styled from "styled-components";
+import {Country} from "../../interfaces/MainInterface";
+import {Container} from "../styles/styles";
 
-type Country = {
-    name: string;
-    code: string;
-    emoji: string;
-    emojiU: string;
-    continent: { name: string };
-};
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  .container {
-    width: 500px;
-  }
-  ul {
-    list-style: none;
-  }
-  .emoji {
-    font-family: 'NotoColorEmojiLimited', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol';
-  }
-  .searchInput {
-    input {
-      width: 82.5%;
-    }
-    button {
-      height: 38px;
-    }
-    
-  }
-`;
 
 const Main = () => {
-    const [country, setCountry] = useState("US");
     const [searchValue, setSearchValue] = useState("");
     const [searchActive, setSearchActive] = useState(false);
-    const [filteredData, setFilteredData] = useState<Country[]>([]);
+    const [filteredData, setFilteredData] = useState<Country []>([]);
     const { error, loading, data } = useQuery(GetCountries);
 
     useEffect(() => {
     }, [data, filteredData]);
+
     const filterCountries = async (event: any) => {
         event.preventDefault();
         const filteredCountries = data.countries.filter((country: Country) =>
