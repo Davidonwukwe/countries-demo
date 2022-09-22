@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GetCountries } from "../../GraphQL/GetCountries";
 import {Country} from "../../interfaces/MainInterface";
 import {Container} from "../styles/styles";
+import CountriesList from "../countries-list";
 
 
 const Main = () => {
@@ -14,7 +15,7 @@ const Main = () => {
     useEffect(() => {
     }, [data, filteredData]);
 
-    const filterCountries = async (event: any) => {
+    const filterCountries = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
         const filteredCountries = data.countries.filter((country: Country) =>
             country.name.toLowerCase().includes(searchValue)
@@ -57,18 +58,7 @@ const Main = () => {
 
                         </div>
 
-                        {(!!filteredData.length) && (
-                            <div data-testid="countryResult">
-                                {filteredData.map((country, index) => (
-                                    <div key={index} className="my-3">
-                                        <div key={index}><span className="emoji" role="img">{country.emoji}</span> <span data-testid="countryName">{country.name}</span> </div>
-                                        <div>Continent: {country.continent.name}</div>
-                                        <button className="btn btn-sm btn-primary"> See Details</button>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-                        {(searchActive && !filteredData.length) && <div className="mt-2"> No result found</div>}
+                        <CountriesList filteredData={filteredData} searchActive={searchActive}/>
                 </form> }
             </div>
 

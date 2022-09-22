@@ -5,3 +5,7 @@ export type Country = {
     emojiU: string;
     continent: { name: string };
 };
+export type CountryProps = {
+    filteredData: Country[];
+    searchActive: boolean;
+}

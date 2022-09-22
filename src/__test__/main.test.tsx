@@ -1,10 +1,9 @@
 import {render, screen, cleanup} from "@testing-library/react";
 import renderer, {act} from "react-test-renderer";
-import Main from "../main/main"
+import Main from "../components/main/main"
 import  '@testing-library/jest-dom'
 import {MockedProvider} from "@apollo/client/testing";
-import {GetCountries} from "../../GraphQL/GetCountries";
-import userEvent from "@testing-library/user-event";
+import {GetCountries} from "../GraphQL/GetCountries";
 
 afterEach(() => {
     cleanup();
